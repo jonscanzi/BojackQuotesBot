@@ -56,9 +56,9 @@ fn parse_psv<P: AsRef<Path>>(path: P) -> Vec<Quote> {
                 let test: Vec<String> = ip.split("|").map(|t| t.replace("\"", "")).map(|t| t.to_string()).collect();
                 //TODO: add filter in case there are multiple tabs next to each other
 
-                let quote = test.get(0).expect(&format!("Error: could not read quote at line {}", idx)).trim();
-                let author = test.get(1).expect(&format!("Error: could not read author name at line {}", idx)).trim();
-                let season_ep = test.get(2).expect(&format!("Error: could not read season and episode at line {}", idx)).trim();
+                let quote = test.get(0).expect(&format!("Error: could not read quote at line {}", idx+1)).trim();
+                let author = test.get(1).expect(&format!("Error: could not read author name at line {}", idx+1)).trim();
+                let season_ep = test.get(2).expect(&format!("Error: could not read season and episode at line {}", idx+1)).trim();
                 let season_ep_re = Regex::new(r"[sS](\d+)[eE](\d+)").unwrap();
 
                 let caps = season_ep_re.captures(season_ep).unwrap();
