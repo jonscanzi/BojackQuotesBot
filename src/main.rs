@@ -20,7 +20,22 @@ struct Quote {
 
 impl Quote {
     pub fn formatted(&self) -> String {
-        format!("\"{}\"\n\n - {}\n Season {}, Episode {}", self.quote, self.quotee, self.season, self.episode)
+        // Create specific formats for each combination of unknown/known season and ep to make sure format is only called once
+        // Note: unknown season/ep means it is 0 in thr quote file
+        match self.season {
+            0 => {
+                match self.episode {
+                    0 => format!("\"{}\"\n\n - {}\n Season ?, Episode ?", self.quote, self.quotee),
+                    _ => format!("\"{}\"\n\n - {}\n Season ?, Episode {}", self.quote, self.quotee, self.episode),
+                }
+            },
+            _ => {
+                match self.episode {
+                    0 => format!("\"{}\"\n\n - {}\n Season {}, Episode ?", self.quote, self.quotee, self.season),
+                    _ => format!("\"{}\"\n\n - {}\n Season {}, Episode {}", self.quote, self.quotee, self.season, self.episode),
+                }
+            },
+        }
     }
 }
     
